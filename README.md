@@ -1,6 +1,7 @@
 # cofa-harness
 
 3시간짜리 AI 활용 실무 과제(데이터 과제 포함)를 Codex 로 풀 때 쓰는 **얇은 개인 작업 규칙**이다.
+[frank081999-glitch/cofa-harness](https://github.com/frank081999-glitch/cofa-harness) 를 fork 해서 진행 상황 파일(`STATE.md`)과 여러 세션 규칙을 더했다.
 과제 해법 코드는 없다. 일하는 순서와 기록 양식, 표 데이터 점검 도구 하나만 있다.
 
 이 저장소가 지키는 것은 세 가지다.
@@ -13,8 +14,8 @@
 ## 쓰는 법
 
 ```sh
-git clone https://github.com/frank081999-glitch/cofa-harness /tmp/cofa-harness
-bash /tmp/cofa-harness/install.sh        # 과제 폴더(git 루트)에서 실행한다
+git clone https://github.com/soltyspring/cofa-harness /tmp/kit
+bash /tmp/kit/install.sh                  # 과제 폴더에서 실행한다
 codex                                     # 다시 열고 /skills 에 4개가 보이는지 본다
 ```
 
@@ -23,12 +24,20 @@ codex                                     # 다시 열고 /skills 에 4개가 �
 | 경로 | 무엇 |
 |---|---|
 | `AGENTS.md` | Codex 작업 규칙 30여 줄. 과제에 이미 있으면 뒤에 덧붙인다 |
-| `PLAN.md` · `NOTES.md` · `SUBMISSION.md` | 합의문 · 결정 기록과 인계 상태 · 제출 문서 양식 |
+| `PLAN.md` · `NOTES.md` · `SUBMISSION.md` | 합의문 · 결정 기록 · 제출 문서 양식 |
+| `STATE.md` | 진행 상황. 커밋할 때마다 현재 단계 · 남은 것 · 다음 할 일을 갱신하고 진행 기록에 한 줄 더한다 |
 | `.agents/skills/` | `data-first-look` · `verify` · `handoff` · `wrapup` |
 | `.harness/intake.md` | 담당자 인터뷰 질문 순서 (사람용) |
+| `.harness/GOAL.md` | 결과물이 갖출 것 · 제출 전 점검 질문 |
 | `.harness/tools/profile.py` | 표 데이터 첫 점검: 행·열·결측·형식 섞임·키 후보·개인정보 의심 열(값은 가림). cp949 csv 도 읽는다. 표준 라이브러리만 쓴다 |
 
 설치 끝에 파이썬·node 버전과 설치된 패키지를 찍는다. 스택은 그것을 보고 정한다.
+상위 폴더가 이미 git 저장소면 `git init` 을 하지 않는다. `STATE.md` 의 시작 시각은 설치 시각으로 채운다.
+
+## 세션 바꾸기 · 여러 세션
+
+- 파일을 고치는 세션은 하나(메인)다. 다른 세션은 첫 지시를 「보조. 파일은 고치지 마라.」로 시작해 읽기 · 검사 · 조언만 시킨다.
+- 세션을 바꿀 때는 새 세션에 「AGENTS.md 의 새 세션 순서대로 읽고 현재 상태를 다섯 줄로 요약해라」라고 한다. `STATE.md` 가 커밋마다 갱신되므로 마지막 커밋 시점부터 이어진다.
 
 ## 시간표 (180분 기준, 사람이 지킨다)
 
@@ -39,5 +48,5 @@ codex                                     # 다시 열고 /skills 에 4개가 �
 | 30~75 | 입력에서 출력까지 도는 가장 작은 판 → `verify` → 커밋 |
 | 75~140 | 기능을 하나씩 붙이고 매번 `verify`. 90분쯤 `handoff` 로 세션 교체 |
 | 140 | 기능 동결 |
-| 140~165 | `wrapup` · 제출 문서 · 약점 세 개 직접 적기 |
+| 140~165 | `wrapup` · 제출 문서 · 약점 세 개 직접 적기 · `GOAL.md` 2절 점검 |
 | 165~ | 제출 |

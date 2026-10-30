@@ -22,7 +22,14 @@
 |---|---|
 | 데이터 파일을 처음 볼 때 | `data-first-look` · `.agents/skills/data-first-look/SKILL.md` |
 | 기능 하나를 끝냈을 때, 완료라고 말하기 전 | `verify` · `.agents/skills/verify/SKILL.md` |
-| 사람이 「인계」라고 하거나 새 세션을 열었을 때 | `handoff` · `.agents/skills/handoff/SKILL.md` |
+| 사람이 「인계」라고 하거나 세션을 바꿀 때 | `handoff` · `.agents/skills/handoff/SKILL.md` |
 | 사람이 「마무리」라고 할 때 | `wrapup` · `.agents/skills/wrapup/SKILL.md` |
 
-새 세션은 `PLAN.md` → `NOTES.md` 맨 아래 「현재 상태」 → `git log --oneline -15` 순서로 읽고 시작한다.
+## 진행 상황과 여러 세션
+9. 진행 상황은 `STATE.md` 한 파일에 둔다. 커밋할 때마다 「현재」 블록을 덮어쓰고 「진행 기록」에 한 줄을 더해 같은 커밋에 넣는다. 시각은 `TZ=KST-9 date +%H:%M` 으로 찍고, 경과 분은 「시작 시각」에서 계산한다.
+10. 코드와 `PLAN.md` · `STATE.md` · `NOTES.md` 는 메인 세션 하나만 고친다. 사람이 첫 지시에서 「보조」라고 한 세션은 파일을 고치지 않고 읽기 · 검사 실행 · 조언만 한다. 고칠 것이 있으면 메인 세션에 붙여 넣을 지시문으로 돌려준다.
+11. 파일을 고치기 전에 `git status` 를 본다. 내가 만들지 않은 변경이 있으면 덮어쓰지 말고 사람에게 묻는다.
+12. 단계를 넘기기 전에 세 가지를 확인하고 `STATE.md` 진행 기록에 남긴다: `PLAN.md` 합의에서 벗어나지 않았나 · 실행 증거 없이 완료로 적은 것이 없나 · 한 번도 실패를 본 적 없는 검사가 없나.
+13. 결과물이 갖출 것과 제출 전 점검 질문은 `.harness/GOAL.md` 에 있다. 사람이 그 질문을 하면 산출물과 기록에 있는 근거(파일:줄 · 커밋 · 검사 출력)로만 답하고, 근거가 없으면 없다고 말한다.
+
+새 세션은 `PLAN.md` → `STATE.md` → `NOTES.md` 최근 결정 → `git log --oneline -15` 순서로 읽고 시작한다. 첫 답에서 현재 상태를 다섯 줄로 요약하고 사람의 확인을 기다린다.
