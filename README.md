@@ -1,13 +1,15 @@
 # cofa-harness
 
 3시간짜리 AI 활용 실무 과제(데이터 과제 포함)를 Codex 로 풀 때 쓰는 **얇은 개인 작업 규칙**이다.
-[frank081999-glitch/cofa-harness](https://github.com/frank081999-glitch/cofa-harness) 를 fork 해서 진행 상황 파일(`STATE.md`)과 여러 세션 규칙을 더했다.
+[frank081999-glitch/cofa-harness](https://github.com/frank081999-glitch/cofa-harness) 를 fork 해서 진행 상황 파일(`STATE.md`), 여러 세션 규칙과 작업 중간 이해 점검을 더했다.
 과제 해법 코드는 없다. 일하는 순서와 기록 양식, 표 데이터 점검 도구 하나만 있다.
 
 이 저장소가 지키는 것은 세 가지다.
 1. **사람이 판단한다.** 담당자에게 묻고 성공 기준을 숫자로 정하는 일, 핵심 숫자를 다른 경로로 확인하는 일은 사람이 한다.
 2. **돌린 것만 말한다.** 검사를 돌리지 않았거나 0건 돌았으면 「미검증」이다.
 3. **인계할 수 있게 남긴다.** 결정 한 줄 기록과 「현재 상태」 블록으로 새 세션이나 다른 사람이 이어받는다.
+
+주요 기능을 끝내면 `checkpoint`가 구조·선택 이유·검사 결과·한계를 1~2분 분량으로 설명한다. 사람이 직접 코드나 출력을 보고 이해를 확인하며, 미해결 부분은 STATE.md로 이어간다. 자세한 이해를 마지막에 몰아두지 않는다.
 
 규칙 파일은 짧게 둔다. 길게 쓴 지시는 에이전트를 오히려 느리게 만든다.
 
@@ -16,23 +18,24 @@
 ```sh
 git clone https://github.com/soltyspring/cofa-harness /tmp/kit
 bash /tmp/kit/install.sh                  # 과제 폴더에서 실행한다
-codex                                     # 다시 열고 /skills 에 4개가 보이는지 본다
+codex                                     # 다시 열고 /skills 에 5개가 보이는지 본다
 ```
 
 `install.sh` 가 과제 폴더에 두는 것 (이미 있는 파일은 덮어쓰지 않는다):
 
 | 경로 | 무엇 |
 |---|---|
-| `AGENTS.md` | Codex 작업 규칙 30여 줄. 과제에 이미 있으면 뒤에 덧붙인다 |
+| `AGENTS.md` | Codex 작업 규칙. 과제에 이미 있으면 뒤에 덧붙인다 |
 | `PLAN.md` · `NOTES.md` · `SUBMISSION.md` | 합의문 · 결정 기록 · 제출 문서 양식 |
-| `STATE.md` | 진행 상황. 커밋할 때마다 현재 단계 · 남은 것 · 다음 할 일을 갱신하고 진행 기록에 한 줄 더한다 |
-| `.agents/skills/` | `data-first-look` · `verify` · `handoff` · `wrapup` |
+| `STATE.md` | 현재 단계 · 남은 것 · 다음 할 일 · 이해 점검 상태와 미해결 질문. 커밋마다 진행 기록도 갱신한다 |
+| `.agents/skills/` | `data-first-look` · `verify` · `checkpoint` · `handoff` · `wrapup` |
 | `.harness/intake.md` | 담당자 인터뷰 질문 순서 (사람용) |
-| `.harness/GOAL.md` | 결과물이 갖출 것 · 제출 전 점검 질문 |
+| `.harness/GOAL.md` | 결과물이 갖출 것 · 중간 이해 점검 · 제출 전 남은 부분 확인 |
 | `.harness/tools/profile.py` | 표 데이터 첫 점검: 행·열·결측·형식 섞임·키 후보·개인정보 의심 열(값은 가림). cp949 csv 도 읽는다. 표준 라이브러리만 쓴다 |
 
 설치 끝에 파이썬·node 버전과 설치된 패키지를 찍는다. 스택은 그것을 보고 정한다.
 상위 폴더가 이미 git 저장소면 `git init` 을 하지 않는다. `STATE.md` 의 시작 시각은 설치 시각으로 채운다.
+기존 설치에 재실행하면 이전 규칙·양식은 갱신되지 않는다. 새 과제 폴더에 최신 키트를 설치하거나, 기존 기록을 보존하면서 변경된 규칙을 직접 반영한다.
 
 ## 세션 바꾸기 · 여러 세션
 
@@ -45,8 +48,8 @@ codex                                     # 다시 열고 /skills 에 4개가 �
 |---|---|
 | 0~15 | 과제 읽기 · `intake.md` 순서로 담당자에게 묻기 · 데이터면 `data-first-look` |
 | 15~30 | `PLAN.md` 합의문 → 담당자 확인 → 첫 커밋 |
-| 30~75 | 입력에서 출력까지 도는 가장 작은 판 → `verify` → 커밋 |
-| 75~140 | 기능을 하나씩 붙이고 매번 `verify`. 90분쯤 `handoff` 로 세션 교체 |
+| 30~75 | 입력에서 출력까지 도는 가장 작은 판 → `verify` → `checkpoint`로 구조·결과 이해 |
+| 75~140 | 기능마다 `verify`, 주요 완료·설계 변경·약 25분 경과 시 `checkpoint`. 90분쯤 필요하면 `handoff` |
 | 140 | 기능 동결 |
-| 140~165 | `wrapup` · 제출 문서 · 약점 세 개 직접 적기 · `GOAL.md` 2절 점검 |
+| 140~165 | `wrapup` · 제출 문서 · 약점 세 개 직접 적기 · `GOAL.md` 3절에서 미해결·변경 부분 확인 |
 | 165~ | 제출 |

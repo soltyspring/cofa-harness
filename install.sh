@@ -28,4 +28,4 @@ python3 .harness/tools/profile.py --selftest | tail -1
 # 이 기계에 무엇이 있나 — 스택을 정하기 전에 본다
 echo "python $(python3 -V 2>&1 | cut -d' ' -f2) · node $(node -v 2>/dev/null || echo 없음) · git root $(git rev-parse --show-toplevel)"
 for m in pandas numpy flask fastapi streamlit openpyxl matplotlib pytest; do python3 -c "import $m" 2>/dev/null && printf '%s ' "$m"; done; echo "(설치된 파이썬 패키지)"
-echo "다음: .harness/intake.md 로 담당자에게 묻고 PLAN.md 를 채운다. 진행 상황은 STATE.md, 목표와 제출 전 점검은 .harness/GOAL.md. Codex 를 다시 열고 /skills 로 4개가 보이는지 본다."
+echo "다음: .harness/intake.md 로 담당자에게 묻고 PLAN.md 를 채운다. 진행과 이해 점검은 STATE.md, 중간·마지막 점검은 .harness/GOAL.md. Codex 를 다시 열고 /skills 로 5개가 보이는지 본다."
