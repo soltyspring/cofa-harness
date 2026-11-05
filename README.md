@@ -2,6 +2,7 @@
 
 3시간짜리 AI 활용 실무 과제(데이터 과제 포함)를 Codex 로 풀 때 쓰는 **얇은 개인 작업 규칙**이다.
 [frank081999-glitch/cofa-harness](https://github.com/frank081999-glitch/cofa-harness) 를 fork 해서 진행 상황 파일(`STATE.md`), 여러 세션 규칙과 작업 중간 이해 점검을 더했다.
+원본의 [설명 되돌리기](https://github.com/frank081999-glitch/cofa-harness/commit/ae81485)와 [되돌린 시도 기록](https://github.com/frank081999-glitch/cofa-harness/commit/347ac04)을 세 역할의 쓰기 범위와 중간 점검에 맞게 조정해 반영했다.
 과제 해법 코드는 없다. 일하는 순서와 기록 양식, 표 데이터 점검 도구 하나만 있다.
 
 이 저장소가 지키는 것은 세 가지다.
@@ -18,7 +19,7 @@
 ```sh
 git clone https://github.com/soltyspring/cofa-harness /tmp/kit
 bash /tmp/kit/install.sh                  # 과제 폴더에서 실행한다
-codex                                     # 다시 열고 /skills 에 5개가 보이는지 본다
+codex                                     # 다시 열고 /skills 에 6개가 보이는지 본다
 ```
 
 `install.sh` 가 과제 폴더에 두는 것 (이미 있는 파일은 덮어쓰지 않는다):
@@ -28,7 +29,7 @@ codex                                     # 다시 열고 /skills 에 5개가 �
 | `AGENTS.md` | Codex 작업 규칙. 과제에 이미 있으면 뒤에 덧붙인다 |
 | `PLAN.md` · `NOTES.md` · `SUBMISSION.md` | 합의문 · 결정 기록 · 제출 문서 양식 |
 | `STATE.md` | 현재 단계 · 남은 것 · 다음 할 일 · 이해 점검 상태와 미해결 질문. 커밋마다 진행 기록도 갱신한다 |
-| `.agents/skills/` | `data-first-look` · `verify` · `checkpoint` · `handoff` · `wrapup` |
+| `.agents/skills/` | `data-first-look` · `verify` · `checkpoint` · `explain-back` · `handoff` · `wrapup` |
 | `.harness/intake.md` | 담당자 인터뷰 질문 순서 (사람용) |
 | `.harness/GOAL.md` | 결과물이 갖출 것 · 중간 이해 점검 · 제출 전 남은 부분 확인 |
 | `.harness/roles.md` | 첫 메시지로 메인·검증·이해 도우미 역할 선택, 시작 절차와 쓰기 범위 |
@@ -52,6 +53,13 @@ codex                                     # 다시 열고 /skills 에 5개가 �
 - 메인에 「검증과 이해 도우미도 열었어」라고 알려주면 메인은 변경·검사 근거와 짧은 요약을 남기고 상세 설명은 이해 도우미가 맡는다. 도우미에게 「최근 변경 설명해 줘」라고 하면 최신 파일을 읽는다.
 - 역할 선택과 전달은 지침 기반이다. 자동 세션 생성·대화 공유·상시 감시는 없다. 각 세션은 다음 요청 때 기록을 읽는다. 권한을 운영체제 수준에서 강제하는 파일 잠금 기능도 아니다.
 - 세션을 바꿀 때도 역할 이름으로 시작한다. 메인은 STATE.md와 보조 보고서의 미해결 사항을, 보조는 자기 기존 보고서를 읽고 이어간다.
+
+## 설명 연습과 실패 기록
+
+- 평소에는 `checkpoint`와 이해 도우미가 쉽게 설명한 뒤 이해를 확인한다. Codex 채팅에서 `설명 연습` 또는 `$explain-back <기능>`을 요청하면 사람이 먼저 설명하고 AI가 실제 코드와 대조한다. 한 번에 질문 하나만 내며, 모르면 코드·힌트를 주고 요청에 따라 작은 예제로 다시 설명한다.
+- `모의 문답` 또는 `$explain-back 모의`는 요청한 경우에만 남은 시간 안에서 진행한다. 실제 평가 문항·점수 예측이 아니며, AI 사용이 금지된 단계에서는 실행하지 않는다. 매 중간 점검을 모의 문답으로 바꾸지 않는다.
+- NOTES.md의 「내 설명」은 원할 때 사람이 직접 쓴다. 이해 도우미는 자기 보고서에 실제 답과 미해결 질문을 기록하고 메인이 STATE.md에 반영한다.
+- 수정 전 NOTES.md의 「되돌린 시도」를 읽는다. 메인이 실제 실패의 가설·증거·복구 후 검사·다음 접근을 기록한다. 같은 방법을 다시 쓰려면 달라진 조건과 검증 기준을 남긴다. 보조는 실패·재시도 제안을 자기 보고서에만 기록한다.
 
 ## 시간표 (180분 기준, 사람이 지킨다)
 
