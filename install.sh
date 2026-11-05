@@ -7,6 +7,7 @@ cp -rn "$H/tools" .harness/ 2>/dev/null || true
 cp -n "$H/intake.md" .harness/ 2>/dev/null || true
 cp -n "$H/GOAL.md" .harness/ 2>/dev/null || true
 cp -n "$H/roles.md" .harness/ 2>/dev/null || true
+cp -n "$H/START.md" .harness/ 2>/dev/null || true
 cp -rn "$H/skills/." .agents/skills/ 2>/dev/null || true
 for f in PLAN NOTES SUBMISSION STATE; do
   [ -e "$f.md" ] && echo "skip $f.md (이미 있음)" || cp "$H/templates/$f.md" "$f.md"
@@ -29,4 +30,4 @@ python3 .harness/tools/profile.py --selftest | tail -1
 # 이 기계에 무엇이 있나 — 스택을 정하기 전에 본다
 echo "python $(python3 -V 2>&1 | cut -d' ' -f2) · node $(node -v 2>/dev/null || echo 없음) · git root $(git rev-parse --show-toplevel)"
 for m in pandas numpy flask fastapi streamlit openpyxl matplotlib pytest; do python3 -c "import $m" 2>/dev/null && printf '%s ' "$m"; done; echo "(설치된 파이썬 패키지)"
-echo "다음: Codex 를 다시 열고 첫 줄에 메인 / 검증 / 이해 도우미 중 하나를 적는다. 같은 과제 폴더에서 메인을 먼저 시작한다. 역할은 .harness/roles.md, 진행은 STATE.md. /skills 로 6개가 보이는지 본다."
+echo "다음: .harness/START.md 에서 시작 문구를 복사한다. Codex 를 다시 열고 같은 과제 폴더에서 메인을 먼저 시작한다. 역할은 .harness/roles.md, 진행은 STATE.md. /skills 로 6개가 보이는지 본다."
